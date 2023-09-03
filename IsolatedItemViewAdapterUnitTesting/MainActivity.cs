@@ -93,18 +93,18 @@ namespace IsolatedItemViewAdapterUnitTesting
             AbsListView? container = _contWay switch
             {
                 ContainerWays.ListView => _lv_container,
-                _ => _gv_container,
+                ContainerWays.GridView => _gv_container,
+                _ => null,
             };
 
             // what kind of adapter: Isolated or Shared
-            IListAdapter adapter = _adpWay switch
+            IListAdapter? adapter = _adpWay switch
             {
                 AdapterWays.Isolated => new IsolatedItemViewAdapter<HelloUIButler>(args),
                 AdapterWays.Shared => new SharedItemViewAdapter<HelloUIButler>(args),
-                _ => new CustomArrayAdapter<HelloUIButler>(args),
+                _ => null,
             };
 
-            //     this.SignDebug("three");
             // run
             if (container != null)
                 container.Adapter = adapter;
@@ -116,34 +116,13 @@ namespace IsolatedItemViewAdapterUnitTesting
             __ClearContainer(_gv_container);
         }
 
-        //private void __ClearContainer(AbsListView? container)
-        //{
-        //    if (container != null && container.ChildCount > 0)
-        //    {
-        //        this.SignDebug("one");
-        //        try
-        //        {
-        //            container.RemoveAllViews(); // exception: removeAllViews() is not supported in AdapterView
-        //            this.SignDebug("two");
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            this.SignDebug(ex.Message);
-        //        }
-        //        container.Adapter = null;
-        //    }
-        //    this.SignDebug("three");
-        //}
         private void __ClearContainer(AbsListView? container)
         {
             if (container != null && container.ChildCount > 0 && container.Adapter != null)
             {
-                this.SignDebug($"one for {container.AccessibilityClassName}");
                 container.Adapter = null;
             }
-            this.SignDebug($"two for {container?.AccessibilityClassName}");
         }
-
 
         private enum ContainerWays
         {
@@ -157,10 +136,8 @@ namespace IsolatedItemViewAdapterUnitTesting
         }
         private enum AdapterWays
         {
-            CustomArray,
             Isolated,
             Shared,
-
         }
     }
 

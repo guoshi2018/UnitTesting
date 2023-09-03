@@ -4,12 +4,7 @@ using Android.Views;
 using System.Collections.Generic;
 using System;
 using Android.Util;
-using Android.Content;
-using Android.App;
-using System.Runtime.Remoting.Contexts;
-//using System.Runtime.Remoting.Contexts;
 using Android.Runtime;
-using Java.Util.Zip;
 
 #nullable enable
 
@@ -17,71 +12,180 @@ using Java.Util.Zip;
 
 namespace IsolatedItemViewAdapterUnitTesting
 {
+    #region failed also
+    //public class CustomArrayAdapter<TData> : ArrayAdapter<TData>
+    //{
+    //    //    protected readonly List<ViewInfoWrapper> _wrappers;
+    //    protected readonly int _itemViewLayoutId;
+    //    protected readonly Action<View, int, ViewGroup?>? _renderItemView;
+    //    protected readonly LayoutInflater _inflater;
 
-    public class CustomArrayAdapter<TData> : ArrayAdapter<TData>
-    {
-        protected readonly int _itemViewLayoutId;
-        protected readonly Action<View, int, ViewGroup?>? _renderItemView;
-        protected readonly LayoutInflater _inflater;
+    //    public CustomArrayAdapter(Android.Content.Context context, int itemViewLayoutId, TData[] datas,
+    //        Action<View, int, ViewGroup?>? renderItemView = null)
+    //        : base(context, itemViewLayoutId, Resource.Id.tv_temp, datas)
+    //    {
+    //        _renderItemView = renderItemView;
+    //        var inflater = context.GetSystemService(Android.Content.Context.LayoutInflaterService).JavaCast<LayoutInflater>();
+    //        if (null == inflater)
+    //            throw new AndroidException("failed to get LayoutInflaterService");
+    //        _inflater = inflater;
 
-        public CustomArrayAdapter(Android.Content.Context context, int itemViewLayoutId, TData[] datas,
-            Action<View, int, ViewGroup?>? renderItemView = null)
-            : base(context, itemViewLayoutId, datas)
-        {
-            _renderItemView = renderItemView;
-            var inflater = context.GetSystemService(Android.Content.Context.LayoutInflaterService).JavaCast<LayoutInflater>();
-            if (null == inflater)
-                throw new AndroidException("failed to get LayoutInflaterService");
-            _inflater = inflater;
+    //        // _wrappers = new List<ViewInfoWrapper>();
+    //        //for (var i = 0; i < datas.Length; i++)
+    //        //{
+    //        //    //View? v = _context.LayoutInflater.Inflate(_itemViewLayoutId, null)
+    //        //    //    ?? throw new AndroidRuntimeException("At least one isolated view creation failed");
+    //        //    View? v = _inflater.Inflate()
+    //        //        ?? throw new AndroidRuntimeException("At least one isolated view creation failed");
+    //        //    _wrappers.Add(new ViewInfoWrapper(i, datas[i], v, false));
+    //        //}
+    //    }
 
-            this.SignDebug("1");
-        }
+    //    // tuple as params
+    //    public CustomArrayAdapter((Android.Content.Context context, int itemViewLayoutId, TData[] datas,
+    //        Action<View, int, ViewGroup?>? renderItemView) args) : this(args.context, args.itemViewLayoutId, args.datas, args.renderItemView) { }
 
-        // tuple as params
-        public CustomArrayAdapter((Android.Content.Context context, int itemViewLayoutId, TData[] datas,
-            Action<View, int, ViewGroup?>? renderItemView) args) : this(args.context, args.itemViewLayoutId, args.datas, args.renderItemView) { }
+    //    public CustomArrayAdapter((Android.Content.Context context, int itemViewLayoutId, TData[] datas) args)
+    //        : this(args.context, args.itemViewLayoutId, args.datas, null) { }
 
-        public CustomArrayAdapter((Android.Content.Context context, int itemViewLayoutId, TData[] datas) args)
-            : this(args.context, args.itemViewLayoutId, args.datas, null) { }
+    //    public override View GetView(int position, View? convertView, ViewGroup parent)
+    //    {
+    //        View? view = convertView; // re-use an existing view, if one is available
+    //        base.GetView(position, convertView, parent);
+    //        if (view == null)// otherwise create a new one
+    //        {
+    //            this.SignDebug("2");
+    //            //    view = this.Context.LayoutInflater.Inflate(_itemViewLayoutId, parent, false);
+    //            try
+    //            {
 
-        //public override View GetView(int position, View? convertView, ViewGroup parent)
-        //{
-        //    //View? view = convertView; // re-use an existing view, if one is available
-        //    //if (view == null)// otherwise create a new one
-        //    //{
-        //    //    this.SignDebug("2");
-        //    //    //    view = this.Context.LayoutInflater.Inflate(_itemViewLayoutId, parent, false);
-        //    //    view = _inflater.Inflate(_itemViewLayoutId, null);
-        //    //    this.SignDebug("3");
-        //    //    if (view == null)
-        //    //        throw new AndroidRuntimeException("At least one shared view creation failed");
-        //    //    _renderItemView?.Invoke(view, position, null);
-        //    //    this.SignDebug("4");
-        //    //}
-        //    this.SignDebug("2");
+    //                this.SignDebug($"3:parent:{parent}");
+    //                // view = _inflater.Inflate(_itemViewLayoutId, parent, false);
+    //                view = _inflater.Inflate(_itemViewLayoutId, null);
+    //                //view = base.GetView(position, convertView, parent);
+    //                this.SignDebug("3");
+    //                if (view == null)
+    //                    throw new AndroidRuntimeException("At least one shared view creation failed");
+    //                _renderItemView?.Invoke(view, position, null);
+    //                this.SignDebug("4");
+    //            }
+    //            catch (Exception e)
+    //            {
+    //                this.SignDebug(e.Message);
+    //                throw;
+    //            }
+    //        }
+    //        this.SignDebug("2");
+    //        return view;
+    //    }
 
-        //    View view;
-        //    try
-        //    {
-        //        view = base.GetView(position, convertView, parent);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        this.SignDebug(ex.Message);
-        //        throw;
-        //    }
+    //    //public override View GetView(int position, View? convertView, ViewGroup parent)
+    //    //{
+    //    //    View v = _wrappers[position].AssView!;
 
-        //    this.SignDebug("3");
-        //    //  _renderItemView?.Invoke(view, position, null);
-        //    return view;
-        //}
-    }
+    //    //    if (!_wrappers[position].Ready)
+    //    //    {
+    //    //        if (_renderItemView != null)
+    //    //            _renderItemView(v, position, parent);
+    //    //        _wrappers[position].Ready = true;
+    //    //        //    Log.Debug("first GetView in isolated", $"when <{position}> creation,parent:{v.Parent == parent}");
+    //    //    }
+    //    //    else
+    //    //    {
+    //    //        //       Log.Debug("other GetView in isolated", $"when <{position}> creation, parent :{v.Parent == parent}");
+    //    //        _reRenderItemView?.Invoke(v, position, parent);
+    //    //    }
+    //    //    return v;
 
 
 
 
+
+    //    //    //LinearLayout itemview = new LinearLayout(Context);
+    //    //    //LayoutInflater? inflater = Context.GetSystemService(Android.Content.Context.LayoutInflaterService) as LayoutInflater;
+    //    //    //try
+    //    //    //{
+    //    //    //    inflater!.Inflate(_itemViewLayoutId, itemview, true);
+    //    //    //}
+    //    //    //catch (Exception e)
+    //    //    //{
+    //    //    //    this.SignDebug(e.Message);
+    //    //    //}
+
+    //    //    //return itemview;
+
+    //    //    //View? view = convertView;// = base.GetView(position, convertView, parent);
+    //    //    //if (view == null)
+    //    //    //    view = base.GetView(position, convertView, parent);
+    //    //    //if (view.Tag == null)
+    //    //    //{
+    //    //    //    _renderItemView?.Invoke(view, position, null);
+    //    //    //    view.Tag = "already assigned";
+    //    //    //}
+
+    //    //    //return view;
+
+    //    //    //View? view = convertView; // re-use an existing view, if one is available
+    //    //    //if (view == null)// otherwise create a new one
+    //    //    //{
+    //    //    //    this.SignDebug("2");
+    //    //    //    //    view = this.Context.LayoutInflater.Inflate(_itemViewLayoutId, parent, false);
+    //    //    //    try
+    //    //    //    {
+
+    //    //    //        this.SignDebug($"3:parent:{parent}");
+    //    //    //        // view = _inflater.Inflate(_itemViewLayoutId, parent, false);
+    //    //    //        view = _inflater.Inflate(_itemViewLayoutId, parent, true);
+    //    //    //        //view = base.GetView(position, convertView, parent);
+    //    //    //        this.SignDebug("3");
+    //    //    //        if (view == null)
+    //    //    //            throw new AndroidRuntimeException("At least one shared view creation failed");
+    //    //    //        _renderItemView?.Invoke(view, position, null);
+    //    //    //        this.SignDebug("4");
+    //    //    //    }
+    //    //    //    catch (Exception e)
+    //    //    //    {
+    //    //    //        this.SignDebug(e.Message);
+    //    //    //        throw;
+    //    //    //    }
+    //    //    //}
+    //    //    //this.SignDebug("2");
+    //    //    //return view;
+
+    //    //    //View view;
+    //    //    //try
+    //    //    //{
+    //    //    //    view = base.GetView(position, convertView, parent);
+    //    //    //}
+    //    //    //catch (Exception ex)
+    //    //    //{
+    //    //    //    this.SignDebug(ex.Message);
+    //    //    //    throw;
+    //    //    //}
+
+    //    //    //this.SignDebug("3");
+    //    //    ////  _renderItemView?.Invoke(view, position, null);
+    //    //    //return view;
+    //    //}
+
+
+    //    protected class ViewInfoWrapper : Java.Lang.Object
+    //    {
+    //        public int Position { get; private set; }
+
+    //        public TData Data { get; private set; }
+
+    //        public View? AssView { get; set; }
+
+    //        public bool Ready { get; set; }
+
+    //        public ViewInfoWrapper(int position, TData data, View? assView = null, bool ready = false) =>
+    //        (Position, Data, AssView, Ready) = (position, data, assView, ready);
+    //    }
+    //}
 
     // note： addView(View, LayoutParams) is not supported in AdapterView
+    #endregion
 
     /// <summary>
     /// The item views are isolated
@@ -126,6 +230,7 @@ namespace IsolatedItemViewAdapterUnitTesting
 
             if (!_wrappers[position].Ready)
             {
+                //    parent?.AddView(_wrappers[position].AssView);  error
                 if (_renderItemView != null)
                     _renderItemView(v, position, parent);
                 _wrappers[position].Ready = true;
@@ -182,6 +287,7 @@ namespace IsolatedItemViewAdapterUnitTesting
             return view;
         }
     }
+
     public abstract class BaseItemViewAdapter<TData> : BaseAdapter<TData>
     {
         protected readonly List<ViewInfoWrapper> _wrappers;
