@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/fab_margin">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/ll_spns"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="26dp"   
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:background="#2398FE"
+        android:layout_height="wrap_content">
+
+     <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="40dp"
+        android:id="@+id/spn_amount" />
+
+        <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+         android:layout_marginRight="40dp"
+        android:id="@+id/spn_container" />
+
+        <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spn_adapter" />
+    </LinearLayout>
+   
+
+  <!--  <ListView
+        android:id="@+id/lv_container"
+        android:layout_below="@+id/ll_spns"
+        android:layout_marginBottom="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"/>
+    <GridView
+        android:id="@+id/gv_container"
+        android:layout_below="@+id/lv_container"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:numColumns="1"
+        android:gravity="center"/>-->
+
+  <ListView
+        android:id="@+id/lv_container"
+        android:layout_below="@+id/ll_spns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <GridView
+        android:id="@+id/gv_container"
+        android:layout_below="@+id/lv_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="1"
+        android:gravity="center"/>
+</RelativeLayout>
